@@ -21,16 +21,17 @@ function App() {
   const audioElement = new Audio(saunaLaura);
 
   function handleClick() {
-    console.log("click");
-    audioElement.play();
+    if (!isHidden) {
+      console.log("click");
+      audioElement.play();
 
-    setIsHidden((prevState) => !prevState);
+      setIsHidden((prevState) => !prevState);
+    }
   }
 
   return (
     <div onClick={handleClick} className="app">
-      <EnterScreen isHidden={isHidden} />
-      <Feed isHidden={!isHidden} />
+      {isHidden ? <Feed /> : <EnterScreen />}
     </div>
   );
 }
