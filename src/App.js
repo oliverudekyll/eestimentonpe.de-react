@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./assets/css/_reset.css";
+import "./assets/css/fonts.css";
+import "./assets/css/style.css";
+
+import EnterScreen from "./components/EnterScreen";
+import saunaLaura from "./assets/media/sauna-laura.mp3";
+import gert from "./assets/media/gert.jpg";
+
+function Feed() {
+  return (
+    <main className="feed">
+      <img className="feed__img" src={gert}></img>
+    </main>
+  );
+}
 
 function App() {
+  const [isHidden, setIsHidden] = useState(false);
+
+  const audioElement = new Audio(saunaLaura);
+
+  function handleClick() {
+    console.log("click");
+    audioElement.play();
+
+    setIsHidden((prevState) => !prevState);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onClick={handleClick} className="app">
+      <EnterScreen isHidden={isHidden} />
+      <Feed isHidden={!isHidden} />
     </div>
   );
 }
